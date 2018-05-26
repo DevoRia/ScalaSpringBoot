@@ -23,9 +23,10 @@ class StudentController(@Autowired val dataService: StudentDataService,
   @PostMapping(Array("/add"))
   def addStudent(
                 @ModelAttribute("name") name: String,
-                @ModelAttribute("group") group: ObjectId
+                @ModelAttribute("group") group: String
                 ): String = {
-    val student = new Student(new ObjectId(), name, groupService.findById(group), new util.ArrayList[Book]())
+    println(group)
+    val student = new Student(new ObjectId(), name, groupService.findByName(group), new util.ArrayList[Book]())
     dataService.addPost(student)
     "Success"
   }

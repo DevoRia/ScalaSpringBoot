@@ -8,6 +8,7 @@ import com.vadim.site.dao.GroupRepository
 import com.vadim.site.model.{Book, Group, Model}
 import org.bson.types.ObjectId
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.data.domain.Example
 import org.springframework.stereotype.Service
 
 @Service
@@ -22,5 +23,7 @@ class GroupDataService (@Autowired repository: GroupRepository) extends Servicab
   override def removePost(id: ObjectId): Unit = repository.deleteById(id)
 
   def findById (id: ObjectId): Group = repository.findById(id).get()
+
+  def findByName (name: String): Group = repository.findByName(name)
 
 }
