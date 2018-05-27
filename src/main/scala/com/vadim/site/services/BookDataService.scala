@@ -20,4 +20,10 @@ class BookDataService(@Autowired val repository: BookRepository) extends Servica
   def editPost(model: Book): Unit = new EditCommand[Book](repository, model).execute
 
   override def removePost(id: ObjectId): Unit = new RemoveCommand[Book](repository, id).execute
+
+  def findBooks(list: Array[String]): util.List[Book]= {
+    val books: util.List[Book] = new util.ArrayList[Book]()
+    list.foreach(title => books.add(repository.findBookByTitle(title)))
+    books
+  }
 }

@@ -11,7 +11,8 @@ import org.springframework.web.bind.annotation._
 @RestController
 @RequestMapping(Array("/server"))
 class StudentController(@Autowired val dataService: StudentDataService,
-                       @Autowired val groupService: GroupDataService){
+                       @Autowired val groupService: GroupDataService,
+                       @Autowired val bookService: BookDataService){
 
   @CrossOrigin
   @GetMapping(Array("/show"))
@@ -23,10 +24,10 @@ class StudentController(@Autowired val dataService: StudentDataService,
   @PostMapping(Array("/add"))
   def addStudent(
                 @ModelAttribute("name") name: String,
-                @ModelAttribute("group") group: String
+                @ModelAttribute("group") group: String,
+                @ModelAttribute("books") book: Array[String]
                 ): String = {
-    println(group)
-    val student = new Student(new ObjectId(), name, groupService.findByName(group), new util.ArrayList[Book]())
+    val student = new Student(new ObjectId(), name, groupService.findByName(group), bookService.findBooks(book))
     dataService.addPost(student)
     "Success"
   }
