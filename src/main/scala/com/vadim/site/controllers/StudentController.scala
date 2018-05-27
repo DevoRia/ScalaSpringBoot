@@ -27,7 +27,9 @@ class StudentController(@Autowired val dataService: StudentDataService,
                 @ModelAttribute("group") group: String,
                 @ModelAttribute("books") book: Array[String]
                 ): String = {
-    val student = new Student(new ObjectId(), name, groupService.findByName(group), bookService.findBooks(book))
+    var books: util.List[Book] = new util.ArrayList[Book]()
+    if (!book.isEmpty) books = bookService.findBooks(book)
+    val student = new Student(new ObjectId(), name, groupService.findByName(group),books)
     dataService.addPost(student)
     "Success"
   }
