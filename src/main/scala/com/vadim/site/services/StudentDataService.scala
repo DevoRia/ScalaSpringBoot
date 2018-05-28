@@ -21,4 +21,6 @@ class StudentDataService(@Autowired repository: StudentRepository) extends Servi
 
   override def removePost(id: ObjectId): Unit = new RemoveCommand[Student](repository, id).execute
 
+  def findStudent (name: String): Student = repository.findStudentByName(name)
+
 }

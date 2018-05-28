@@ -14,6 +14,8 @@ class StudentController(@Autowired val dataService: StudentDataService,
                        @Autowired val groupService: GroupDataService,
                        @Autowired val bookService: BookDataService){
 
+  val SUCCESS: String = "Success"
+
   @CrossOrigin
   @GetMapping(Array("/show"))
   def getAllPosts: util.ArrayList[Student] = {
@@ -27,11 +29,32 @@ class StudentController(@Autowired val dataService: StudentDataService,
                 @ModelAttribute("group") group: String,
                 @ModelAttribute("books") book: Array[String]
                 ): String = {
-    var books: util.List[Book] = new util.ArrayList[Book]()
-    if (!book.isEmpty) books = bookService.findBooks(book)
-    val student = new Student(new ObjectId(), name, groupService.findByName(group),books)
+    val student = new Student(new ObjectId(), name, groupService.findByName(group),checkBooks(book))
     dataService.addPost(student)
-    "Success"
+    SUCCESS
+  }
+
+  @CrossOrigin
+  @PostMapping(Array("/edit"))
+  def editStudent (@ModelAttribute("name") name: String,
+                   @ModelAttribute("group") group: String,
+                   @ModelAttribute("books") book: Array[String]
+                  ): String = {
+    val student = new Student(dataService.findStudent(name).getId, name, groupService.findByName(group),checkBooks(book))
+    dataService.editPost(student)
+    SUCCESS
+  }
+
+  @CrossOrigin
+  @GetMapping(Array("/remove/{id}"))
+  def removeStudent(@PathVariable("id") id: String): String = {
+    dataService.removePost(dataService.findStudent(id).getId)
+    SUCCESS
+  }
+
+  def checkBooks (book :Array[String]): util.List[Book] ={
+    if (!book.isEmpty) bookService.findBooks(book)
+    else new util.ArrayList[Book]()
   }
 
 
