@@ -5,7 +5,6 @@ import org.bson.types.ObjectId
 import org.springframework.data.mongodb.repository.{MongoRepository, Query}
 import org.springframework.stereotype.Repository
 
-import java.util
 
 @Repository
 trait BookRepository extends MongoRepository[Book, ObjectId]{
