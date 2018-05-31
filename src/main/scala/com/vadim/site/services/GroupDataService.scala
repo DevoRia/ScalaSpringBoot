@@ -13,13 +13,13 @@ import org.springframework.data.domain.Example
 import org.springframework.stereotype.Service
 
 @Service
-class GroupDataService (@Autowired repository: GroupRepository) extends Servicable {
+class GroupDataService (@Autowired repository: GroupRepository) extends Servicable[Group] {
 
-  def getAllPosts (): util.ArrayList[Group] = Lists.newArrayList(new FindAllCommand[Group](repository).getAllPosts)
+  override def getAllPosts (): util.ArrayList[Group] = Lists.newArrayList(new FindAllCommand[Group](repository).getAllPosts)
 
-  def addPost(model: Group): Unit = new AddCommand[Group](repository, model).execute
+  override def addPost(model: Group): Unit = new AddCommand[Group](repository, model).execute
 
-  def editPost(model: Group): Unit = new EditCommand[Group](repository, model).execute
+  override def editPost(model: Group): Unit = new EditCommand[Group](repository, model).execute
 
   override def removePost(id: ObjectId): Unit = new RemoveCommand[Group](repository, id).execute
 

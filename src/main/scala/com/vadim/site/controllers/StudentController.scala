@@ -1,6 +1,7 @@
 package com.vadim.site.controllers
 
 import java.util
+import java.util.Optional
 
 import com.vadim.site.model.{Book, Group, Student}
 import com.vadim.site.services.{BookDataService, GroupDataService, Servicable, StudentDataService}
@@ -12,9 +13,7 @@ import org.springframework.web.bind.annotation._
 @RequestMapping(Array("/server"))
 class StudentController(@Autowired val dataService: StudentDataService,
                        @Autowired val groupService: GroupDataService,
-                       @Autowired val bookService: BookDataService){
-
-  val SUCCESS: String = "Success"
+                       @Autowired val bookService: BookDataService) extends Router {
 
   @CrossOrigin
   @GetMapping(Array("/show"))

@@ -11,13 +11,13 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 
 @Service
-class StudentDataService(@Autowired repository: StudentRepository) extends Servicable {
+class StudentDataService(@Autowired repository: StudentRepository) extends Servicable[Student] {
 
-  def getAllPosts (): util.ArrayList[Student] = Lists.newArrayList(new FindAllCommand[Student](repository).getAllPosts)
+  override def getAllPosts (): util.ArrayList[Student] = Lists.newArrayList(new FindAllCommand[Student](repository).getAllPosts)
 
-  def addPost(model: Student): Unit = new AddCommand[Student](repository, model).execute
+  override def addPost(model: Student): Unit = new AddCommand[Student](repository, model).execute
 
-  def editPost(model: Student): Unit = new EditCommand[Student](repository, model).execute
+  override def editPost(model: Student): Unit = new EditCommand[Student](repository, model).execute
 
   override def removePost(id: ObjectId): Unit = new RemoveCommand[Student](repository, id).execute
 
