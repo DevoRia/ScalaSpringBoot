@@ -1,4 +1,8 @@
-# ScalaSpringBoot
+# StudentsLibrary
 ## Rest Api on Scala
 
-The same blog just which is using new technology
+Application of Student library.
+That shows every student, his group, and books that he has.
+Tech: Scala Spring Boot, MongoDB.
+
+
