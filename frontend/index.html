@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>frontend</title>
+  </head>
+  <body>
+    <div id="app">
+      <table>
+        <tr v-for="student in students">
+          <td>
+            {{student.name}}
+          </td>
+          <td>
+            {{student.group.name}}
+          </td>
+          <td>
+            <b v-for="book in student.books">
+              {{book.title}}
+            </b>
+          </td>
+          <td ><a @click="setEditable(student)" >Редагувати</a></td>
+          <td><a @click="removeStudent(student.name)">Видалити</a></td>
+        </tr>
+        <tr>
+          <td>
+            <input v-if="!editable" v-model="name" type="text">
+            <input v-else="!editable" v-model="name" type="text" disabled>
+          </td>
+          <td>
+            <select v-model="groupName">
+              <option  v-for="group in groups" :value="group.name" >{{group.name}}</option>
+            </select>
+          </td>
+          <td>
+            <label v-for="book in books">
+              <input  type="checkbox" id="book.title" :value="book.title" v-model="chosenBooks">{{book.title}}
+            </label>
+          </td>
+        </tr>
+      </table>
+      <button v-if="!editable" @click="addStudent">Add Student</button>
+      <template v-else="!editable">
+        <button @click="editStudent">Edit Student</button>
+        <a  @click="setAddable">Відміна</a>
+      </template>
+    </div>
+
+    <hr>
+
+    <div id="group">
+      <table>
+        <tr v-for="group in groups">
+          <td>
+            {{group.name}}
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <input v-model="name" type="text">
+          </td>
+        </tr>
+      </table>
+      <button  @click="addGroup">Add Group</button>
+    </div>
+
+    <hr>
+
+    <div id="book">
+      <table>
+        <tr v-for="book in booksAll">
+          <td>
+            {{book.title}}
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <input v-model="title" type="text">
+          </td>
+        </tr>
+      </table>
+      <button  @click="addBook">Add Book</button>
+    </div>
+
+    <script src="/dist/build.js"></script>
+  </body>
+</html>
